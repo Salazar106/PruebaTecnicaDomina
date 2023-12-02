@@ -11,32 +11,32 @@
             <div class="modal-body">
                     <div class="mb-3">
                         <label for="" class="form-label">Nombre del Producto*</label>
-                        <input type="text" class="form-control" name="nombre_producto" id="nombre_producto" aria-describedby="helpId" required placeholder="">
+                        <input type="text" class="form-control" name="nombre_producto" id="nombre_producto" oninput="validarLetras(this)" helpId" required placeholder="">
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Referencia*</label>
-                        <input type="text" class="form-control" name="referencia" id="referencia" aria-describedby="helpId" required placeholder="">
+                        <input type="text" class="form-control" name="referencia" id="referencia" aria-describedby="helpId" oninput="validarLetras(this)" required placeholder="">
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Precio*</label>
-                        <input type="number" class="form-control" name="precio" id="precio" aria-describedby="helpId" required placeholder="">
+                        <input type="text" class="form-control" name="precio" id="precio" aria-describedby="helpId" oninput="SoloNumeros(this)" required placeholder="">
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Peso*</label>
-                        <input type="number" class="form-control" name="peso" id="peso"  aria-describedby="helpId" required placeholder="">
+                        <input type="text" class="form-control" name="peso" id="peso"  aria-describedby="helpId" oninput="SoloNumeros(this)" required placeholder="peso en Gramos (g)">
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">Categoria*</label>
-                        <input type="text" class="form-control" name="categoria" id="categoria" aria-describedby="helpId" required placeholder="">
+                        <input type="text" class="form-control" name="categoria" id="categoria" aria-describedby="helpId" oninput="validarLetras(this)" required placeholder="">
                     </div>
 
                     <div class="mb-3">
                         <label for="" class="form-label">stock*</label>
-                        <input type="number" class="form-control" name="stock" id="stock" aria-describedby="helpId" required placeholder="">
+                        <input type="text" class="form-control" name="stock" id="stock" aria-describedby="helpId" oninput="SoloNumeros(this)" required placeholder="">
                     </div>
                
             </div>
@@ -49,4 +49,13 @@
     </div>
 </div>
 
+<script>
+    function validarLetras(input) {
+        input.value = input.value.replace(/[^a-zA-Z\s]/g, '')
+    }
 
+    function SoloNumeros(input) {
+        input.value = input.value.replace(/[^0-9]/g, '')
+    }
+
+</script>

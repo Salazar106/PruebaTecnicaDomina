@@ -104,17 +104,28 @@ class ProductosController extends Controller
      * @param  \App\Models\productos  $productos
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request,$id,$stock)
     {
-        $productos=productos::find($id);
-        $productos -> nombre_producto=$request ->input('nombre_producto');
-        $productos -> referencia=$request      ->input('referencia');
-        $productos -> precio=$request          ->input('precio');
-        $productos -> peso=$request            ->input('peso');
-        $productos -> categoria=$request       ->input('categoria');
-        $productos -> stock=$request           ->input('stock');
+        $cantidadVenta = $request->input('cantidad');
 
-        $productos -> update();
+        // Realizar la venta
+        $venta = new ventas;
+        $venta->nombre_producto =  $request->input('nombre_producto');
+        $venta->cantidad = $request->input('cantidad');
+        $venta->precioVenta = $request->input('precioVenta');
+        $venta->precioTotal = $request->input('precioTotal');
+        $venta->save();
+    
+        // Actualizar el stock del producto
+        $producto = productos::find($id);
+        $nuevoStock = $stock - $cantidadVenta;
+    
+        // Asegúrate de validar que el stock no sea negativo
+        $nuevoStock = max(0, $nuevoStock);
+    
+        $producto->stock = $nuevoStock;
+        $producto->update();
+    
         return redirect() -> back();
     }
 
@@ -126,9 +137,6 @@ class ProductosController extends Controller
      */
     public function destroy( $id)
     {
-        $productos =  productos::find($id);
-        $productos -> delete();
-        return redirect() -> back();
-
+    
     }
 }
